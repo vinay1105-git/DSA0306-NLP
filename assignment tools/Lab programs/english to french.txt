@@ -1,0 +1,13 @@
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+
+tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-fr")
+model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-fr")
+
+english_text="hello, how are you? iam learning nlp."
+
+inputs = tokenizer(english_text, return_tensors="pt")
+outputs = model.generate(**inputs)
+french_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+print("English:",english_text)
+print("French:",french_text)
